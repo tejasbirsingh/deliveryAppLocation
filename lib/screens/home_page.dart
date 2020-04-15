@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery_app/screens/detailPage.dart';
 import 'package:grocery_app/screens/location_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: Text(
           'Food Delivery',
@@ -48,6 +50,7 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: <Widget>[
           ListView(
+            physics: BouncingScrollPhysics(),
             padding: EdgeInsets.only(left: 20.0, right: 20.0),
             children: <Widget>[
               SizedBox(height: 15.0),
@@ -92,19 +95,13 @@ class _HomePageState extends State<HomePage> {
                           true, context),
                       _itemCard('Family pack', 'Rs 300', 'images/4.png', false,
                           false, context),
-                      _itemCard('Cheese Burger', 'Rs 99', 'images/1.png', false,
-                          false, context),
-                      _itemCard('Fried Fish', 'Rs 200', 'images/2.png', true,
-                          false, context),
-                      _itemCard('Panner fried', 'Rs 150', 'images/3.png', false,
-                          true, context),
-                      _itemCard('Family pack', 'Rs 300', 'images/4.png', false,
-                          false, context)
+
                     ],
                   )),
               SizedBox(height: 15.0)
             ],
           ),
+
         ],
       ),
     );
@@ -115,7 +112,14 @@ class _HomePageState extends State<HomePage> {
     return Padding(
         padding: EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
         child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => details_page(
+                      assetPath: imgPath,
+                      price:price,
+                      name: name
+                  )));
+            },
             child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
