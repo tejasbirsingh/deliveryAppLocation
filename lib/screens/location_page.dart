@@ -17,7 +17,7 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
   Completer<GoogleMapController> _controller = Completer();
   MapType type;
   List loc = [];
-  LatLng as;
+  LatLng UserLatLong;
   double radius = 30000;
   LatLng center = LatLng(31.329442, 75.573180);
   var location = Location();
@@ -73,21 +73,26 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
     location.changeSettings(
         accuracy: LocationAccuracy.high,
         interval: Duration.microsecondsPerMillisecond);
-    userLocation = await location.getLocation();
+   try{
+     userLocation = await location.getLocation();
+   } on Exception {
+     userLocation = null ;
+   }
 
     print("${userLocation.longitude}, ${userLocation.latitude}");
-    as = LatLng(userLocation.latitude, userLocation.longitude);
+    UserLatLong = LatLng(userLocation.latitude, userLocation.longitude);
+    _goToPos();
   }
 
   Future<void> _goToPos() async {
     GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newLatLngZoom(
-        LatLng(userLocation.latitude, userLocation.longitude), 18));
+        LatLng(userLocation.latitude, userLocation.longitude),18));
     setState(() {
       markers.add(
         Marker(
             markerId: MarkerId('jalandhar'),
-            position: as,
+            position: UserLatLong,
             infoWindow: InfoWindow(title: 'Your location')),
       );
     });
@@ -108,7 +113,7 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
               onPressed: () {
                 setState(() {
                   getCurrentPosition();
-                  _goToPos();
+
                 });
               },
             ),

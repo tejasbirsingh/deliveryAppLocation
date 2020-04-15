@@ -54,26 +54,26 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(left: 20.0, right: 20.0),
             children: <Widget>[
               SizedBox(height: 15.0),
-              Container(
-                child: Wrap(
-                  children: [
-                    address != null
-                        ? Text(address)
-                        : Text('Select your location'),
-                    IconButton(
-                      icon: Icon(
-                        Icons.location_on,
-                        size: 30.0,
-                        color: Colors.green,
-                      ),
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SelectLocationPage())),
-                    )
-                  ],
-                ),
-              ),
+             Wrap(
+               crossAxisAlignment: WrapCrossAlignment.center,
+               alignment: WrapAlignment.center,
+               children: [
+                 address != null
+                     ? Text(address)
+                     : Text('Select your location'),
+                 IconButton(
+                   icon: Icon(
+                     Icons.location_on,
+                     size: 30.0,
+                     color: Colors.green,
+                   ),
+                   onPressed: () => Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                           builder: (context) => SelectLocationPage())),
+                 )
+               ],
+             ),
               SizedBox(
                 height: 10.0,
               ),
